@@ -41,11 +41,15 @@ jobs:
         if: ${{ matrix.os == 'windows'}}
         run: echo "executable_ext=.exe" >> $GITHUB_ENV
 
+      - name: Rename executable
+        if: ${{ matrix.os == 'windows'}}
+        run: mv ${{ github.workspace }}/dist/${{ env.PACKAGE_NAME }}${{ env.executable_ext }} ${{ github.workspace }}/dist/${{ env.PACKAGE_NAME }}-${{ matrix.os }}${{ env.executable_ext }}
+
       - uses: actions/upload-artifact@v3
         if: ${{ github.ref == 'refs/heads/main'}}
         with:
           name: ${{ env.PACKAGE_NAME }}-${{ matrix.os }}
-          path: ${{ github.workspace }}/dist/${{ env.PACKAGE_NAME }}${{ env.executable_ext }}
+          path: ${{ github.workspace }}/dist/${{ env.PACKAGE_NAME }}-${{ matrix.os }}${{ env.executable_ext }}
           retention-days: 1
           if-no-files-found: error
 
