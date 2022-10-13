@@ -37,14 +37,15 @@ jobs:
       - name: Package binary
         run: poetry run python package.py
 
-      - name: Zip dist
-        run: 7z a "${{ env.PACKAGE_NAME }}-${{ matrix.os }}.zip" "./dist/${{ env.PACKAGE_NAME }}"
+      - name: Define executable extension
+        if: ${{ matrix.os == 'windows'}}
+        run: echo "executable_ext=.exe" >> $GITHUB_ENV
 
       - uses: actions/upload-artifact@v3
         if: ${{ github.ref == 'refs/heads/main'}}
         with:
           name: ${{ env.PACKAGE_NAME }}-${{ matrix.os }}
-          path: ${{ env.PACKAGE_NAME }}-${{ matrix.os }}.zip
+          path: ${{ github.workspace }}/dist/${{ env.PACKAGE_NAME }}${{ env.executable_ext }}
           retention-days: 1
           if-no-files-found: error
 

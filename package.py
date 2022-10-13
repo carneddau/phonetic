@@ -25,5 +25,6 @@ run(
         "phonetic",
         "--name",
         "phonetic",
+        "--onefile",
     ]
 )
