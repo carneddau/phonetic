@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from os import remove
 from tempfile import mkstemp
 from textwrap import dedent
 
@@ -28,5 +27,3 @@ run(
         "phonetic",
     ]
 )
-
-remove(temp_file)
