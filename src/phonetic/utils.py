@@ -2,7 +2,8 @@
 
 from functools import cache
 from importlib.metadata import version as _version
-from logging import BASIC_FORMAT, Formatter, StreamHandler, getLogger
+
+from rich.console import Console
 
 
 @cache
@@ -17,11 +18,5 @@ def version() -> str:
     return _version(package())
 
 
-def create_basic_logger(name: str, log_level: str) -> None:
-    logger = getLogger(name)
-
-    handler = StreamHandler()
-    handler.setFormatter(Formatter(fmt=BASIC_FORMAT))
-    logger.addHandler(handler)
-
-    logger.setLevel(log_level)
+err_console = Console(stderr=True, style="red")
+console = Console(stderr=False)

@@ -1,8 +1,8 @@
-from . import __version__
+from .cli import interface
 
 
 def main():
-    print(__version__)
+    interface()
 
 
 if __name__ == "__main__":
